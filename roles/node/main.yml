@@ -1,0 +1,4 @@
+---
+
+- { include: docker.yml, become: yes }
+- { include: mnt-nfs.yml, become: yes }

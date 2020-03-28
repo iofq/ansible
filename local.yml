@@ -1,0 +1,21 @@
+
+---
+
+- name: apply common configuration to all hosts
+  hosts: all
+  become: yes
+
+  roles:
+    - common
+
+- name: apply hypervisor config
+  hosts: hypervisors
+  become: yes
+  roles:
+    - hypervisor
+
+- name: apply per-node config
+  hosts: nodes
+  become: yes
+  roles:
+    - node

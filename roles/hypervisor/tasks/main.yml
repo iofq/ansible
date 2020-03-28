@@ -1,0 +1,26 @@
+---
+
+- { include: dnf.yml, become: yes }
+- { include: libvirt.yml, become: yes }
+
+- name: "add br0 interface"
+  roles:
+    - role: hypervisor
+    - role: linux-system-roles.network
+      network_provider: nm 
+      network_connections: 
+      - name: br0 
+        state: up 
+        type: bridge 
+        ip: 
+          dhcp4: yes 
+      - name: eth0 
+        type: ethernet
+        interface_name: eth0
+        autoconnect: yes
+      - name: br0-slave 
+        type: ethernet 
+        interface_name: eth0
+        master: br0 
+        slave_type: bridge 
+        state: up 

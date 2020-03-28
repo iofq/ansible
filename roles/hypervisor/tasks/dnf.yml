@@ -1,0 +1,30 @@
+---
+
+- name: "install podman"
+  yum:
+    name: podman
+    state: latest
+
+- name: "install cockpit-machines"
+  yum:
+    name: cockpit-machines
+    state: latest
+
+- name: "remove firewalld"
+  yum:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+      - firewalld
+
+- name: "install cockpit service"
+  yum:
+    name: cockpit
+    state: present
+
+- name: "enable cockpit service"
+  systemd:
+    state: started
+    enabled: yes
+    name: cockpit

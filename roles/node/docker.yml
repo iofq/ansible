@@ -1,0 +1,32 @@
+---
+
+- name: "install dependancies for docker"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - apt-transport-https 
+    - ca-certificates 
+    - curl 
+    - software-properties-common
+
+- name: "add GPG key for docker repo"
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+- name: "add docker repo"
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+
+- name: "install docker-ce"
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: yes
+
+- name: "add ansible user to docker group"
+  user:
+    name: ansible
+    groups: docker
+    append: yes 

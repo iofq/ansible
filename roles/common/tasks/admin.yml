@@ -1,0 +1,59 @@
+---
+
+- name: "yum install sudo and sshd"
+  yum: 
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+    - sudo
+    - openssh-server
+  when: ansible_distribution == "CentOS"
+
+- name: "apt install sudo and sshd"
+  apt: 
+    name: "{{ packages }}" 
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+    - sudo
+    - openssh-server
+  when: ansible_distribution == "Ubuntu" 
+
+- name: Ensure group sudo exists
+  group:
+    name: sudo
+    state: present
+
+- name: "add user ansible in group sudo"
+  user:
+    name: "ansible"
+    groups: sudo, wheel
+
+- name: "copy authorized_keys"
+  template:
+    src: templates/authorized_keys
+    dest: /home/ansible/.ssh/authorized_keys
+    owner: ansible
+    group: ansible
+    mode: '0644'
+
+- name: "copy sudoers config"
+  template:
+    src: templates/sudoers
+    dest: /etc/sudoers
+    owner: root 
+    group: root 
+    mode: '0440'
+
+- name: "copy sshd config"
+  template:
+    src: templates/sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root 
+    group: root 
+    mode: '0644'
+  notify: restart sshd
+

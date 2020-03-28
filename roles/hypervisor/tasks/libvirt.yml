@@ -1,0 +1,33 @@
+---
+#enable cockpit
+
+#install libvirt and tooling
+- name: "install libvirt and libguestfs"
+  yum: 
+    name: "{{ packages }}"
+    state: latest
+    update_cache: yes
+  vars:
+    packages:
+    - libvirt
+    - libguestfs
+    - libguestfs-tools
+    - virt-install
+    - rsync
+    - genisoimage
+    - NetworkManager-libnm
+  when: ansible_distribution == "CentOS"
+
+- name: Ensure SELinux is disabled for libvirt 
+  lineinfile:
+    path: /etc/libvirt/qemu.conf
+    regexp: '^#security_driver'
+    line: "security_driver = none"
+
+- name: "enable libvirtd service"
+  systemd:
+    name: libvirtd
+    state: started
+    enabled: yes
+
+
