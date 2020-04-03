@@ -4,7 +4,6 @@
   yum:
     name: epel-release
     state: present
-<<<<<<< HEAD
   when: ansible_distribution == "CentOS"
 
 - name: Ensure NFS utils is installed.
@@ -13,13 +12,12 @@
     state: present 
     update_cache: yes
   when: ansible_distribution == "CentOS"
-=======
->>>>>>> 13f15f3ea23056943bd3335f9bdca3dedfa1a976
 
 - name: "install dnf-automatic"
   yum:
     name: dnf-automatic
     state: present
+  when: ansible_distribution == "CentOS"
 
 - name: "template dnf-automatic.conf"
   template:
@@ -28,14 +26,14 @@
     owner: root
     group: root
     mode: "0664"
+  when: ansible_distribution == "CentOS"
 
 - name: "enable dnf-automatic timer"
   systemd:
     name: dnf-automatic.timer
     state: started
     enabled: yes
-<<<<<<< HEAD
-=======
+  when: ansible_distribution == "CentOS"
 
 - name: "install packages..."
   yum:
@@ -46,6 +44,7 @@
     packages:
       - git
       - dnf-utils
+  when: ansible_distribution == "CentOS"
 
 - name: "remove packages..."
   yum:
@@ -54,4 +53,4 @@
   vars:
     packages:
       - firewalld
->>>>>>> 13f15f3ea23056943bd3335f9bdca3dedfa1a976
+  when: ansible_distribution == "CentOS"

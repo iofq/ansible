@@ -1,7 +1,8 @@
-TODO
-========
-  - roles
-    -  host role for hypervisors (centOS)
-      - install and create gluster brick
-    - node role (centOS or Ubuntu)
-      - install docker/podman
+Testing out ansible in the homelab
+==================================
+
+
+roles for :
+  installing a new KVM hypervisor on top of a CentOS 8 install
+  new Docker host
+  secure new host and setup ansible pull and unattended upgrades

@@ -30,7 +30,7 @@
 - name: "add user ansible in group sudo"
   user:
     name: "ansible"
-    groups: sudo, wheel
+    groups: sudo
 
 - name: "copy authorized_keys"
   template:

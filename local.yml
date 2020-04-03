@@ -11,11 +11,31 @@
 - name: apply hypervisor config
   hosts: hypervisors
   become: yes
+
   roles:
-    - hypervisor
+    - role: hypervisor
+    - role: linux-system-roles.network
+      network_provider: nm 
+      network_connections: 
+      - name: br0 
+        state: up 
+        type: bridge 
+        ip: 
+          dhcp4: yes 
+      - name: eth0 
+        type: ethernet
+        interface_name: eth0
+        autoconnect: yes
+      - name: br0-slave 
+        type: ethernet 
+        interface_name: eth0
+        master: br0 
+        slave_type: bridge 
+        state: up 
 
 - name: apply per-node config
   hosts: nodes
   become: yes
+
   roles:
     - node
