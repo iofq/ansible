@@ -5,10 +5,10 @@
     path: "/mnt/{{ item }}"
     state: directory
     mode: '0755' 
-    loop:
-      - nfs
-      - nfs/docker
-      - nfs/virt
+  with_items:
+    - nfs
+    - nfs/docker
+    - nfs/virt
 
 - name: Mount docker nfs
   mount:
