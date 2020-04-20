@@ -1,7 +1,4 @@
 ---
 
-- { include: env.yml, become: yes }
-- { include: apt.yml, become: yes }
-- { include: dnf.yml, become: yes }
-
 - { include: admin.yml, become: yes }
+- { include: env.yml, become: yes }

@@ -6,13 +6,6 @@
     state: present
   when: ansible_distribution == "CentOS"
 
-- name: Ensure NFS utils is installed.
-  yum: 
-    name: nfs-utils 
-    state: present 
-    update_cache: yes
-  when: ansible_distribution == "CentOS"
-
 - name: "install dnf-automatic"
   yum:
     name: dnf-automatic
@@ -44,6 +37,9 @@
     packages:
       - git
       - dnf-utils
+      - nfs-utils
+      - sudo
+      - openssh-server
   when: ansible_distribution == "CentOS"
 
 - name: "remove packages..."

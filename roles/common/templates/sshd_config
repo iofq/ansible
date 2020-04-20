@@ -1,8 +1,6 @@
 # This is the sshd server system-wide configuration file.  See
 # sshd_config(5) for more information.
 
-# This sshd was compiled with PATH=/usr/local/sbin:/usr/local/bin:/usr/bin
-
 Port 22
 ListenAddress 0.0.0.0
 ListenAddress ::
@@ -13,7 +11,6 @@ MaxAuthTries 10
 AuthorizedKeysFile	.ssh/authorized_keys
 PasswordAuthentication no
 PermitEmptyPasswords no
-# Change to no to disable s/key passwords
 ChallengeResponseAuthentication no
 
 UsePAM yes

@@ -1,7 +1,6 @@
 ---
 #enable cockpit
 
-#install libvirt and tooling
 - name: "install libvirt and libguestfs"
   yum: 
     name: "{{ packages }}"

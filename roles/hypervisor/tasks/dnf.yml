@@ -1,27 +1,15 @@
 ---
 
-- name: "install podman"
-  yum:
-    name: podman
-    state: latest
-
-- name: "install cockpit-machines"
-  yum:
-    name: cockpit-machines
-    state: latest
-
-- name: "remove firewalld"
+- name: "install packages podman, cockpit"
   yum:
     name: "{{ packages }}"
-    state: absent
+    state: present
+    update_cache: yes
   vars:
     packages:
-      - firewalld
-
-- name: "install cockpit service"
-  yum:
-    name: cockpit
-    state: present
+      - podman
+      - cockpit-machines
+      - cockpit
 
 - name: "enable cockpit service"
   systemd:

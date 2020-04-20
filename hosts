@@ -1,4 +1,5 @@
 [hypervisors]
+centos-staging.iofq.local
 
 [nodes]
-192.168.2.63
+ubuntu-staging.iofq.local
