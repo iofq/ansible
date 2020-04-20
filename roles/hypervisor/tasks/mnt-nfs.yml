@@ -2,7 +2,7 @@
 
 - name: "ensure /mnt/nfs exists"
   file:
-    path: /mnt/{{ item }}
+    path: /mnt/{{item}}
     state: directory
     mode: '0755' 
     with_items:
