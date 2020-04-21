@@ -4,13 +4,12 @@
   yum:
     name: epel-release
     state: present
-  when: ansible_distribution == "CentOS"
+    update_cache: yes
 
 - name: "install dnf-automatic"
   yum:
     name: dnf-automatic
     state: present
-  when: ansible_distribution == "CentOS"
 
 - name: "template dnf-automatic.conf"
   template:
@@ -19,20 +18,17 @@
     owner: root
     group: root
     mode: "0664"
-  when: ansible_distribution == "CentOS"
 
 - name: "enable dnf-automatic timer"
   systemd:
     name: dnf-automatic.timer
     state: started
     enabled: yes
-  when: ansible_distribution == "CentOS"
 
 - name: "install packages..."
   yum:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
   vars:
     packages:
       - git
@@ -40,7 +36,6 @@
       - nfs-utils
       - sudo
       - openssh-server
-  when: ansible_distribution == "CentOS"
 
 - name: "remove packages..."
   yum:
@@ -49,4 +44,3 @@
   vars:
     packages:
       - firewalld
-  when: ansible_distribution == "CentOS"

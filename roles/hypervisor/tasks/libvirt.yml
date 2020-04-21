@@ -3,7 +3,6 @@
 
 - name: "install libvirt and libguestfs"
   yum: 
-    name: "{{ packages }}"
     state: latest
     update_cache: yes
   vars:
