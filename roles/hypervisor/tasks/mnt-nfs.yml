@@ -15,7 +15,7 @@
     path: /mnt/nfs/docker
     src: chu-nasty.iofq.local:/srv/docker
     fstype: nfs
-    opts: auto,rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.6.0.2,local_lock=none,addr=10.6.0.4
+    opts: auto,rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,local_lock=none
     state: present
 
 - name: Mount virt nfs
@@ -23,6 +23,6 @@
     path: /mnt/nfs/virt
     src: chu-nasty.iofq.local:/srv/virt
     fstype: nfs
-    opts: auto,rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.6.0.2,local_lock=none,addr=10.6.0.4
+    opts: auto,rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,local_lock=none
     state: present
 
