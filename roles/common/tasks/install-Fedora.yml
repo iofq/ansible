@@ -1,0 +1,28 @@
+---
+
+- name: "install packages..."
+  become: yes
+  dnf:
+    name: "{{ packages }}"
+    update_cache: yes
+    state: present
+  vars:
+    packages:
+      - dnf-automatic
+  tags:
+  - packages
+
+- name: "copy in dnf-automatic.conf"
+  copy:
+    src: files/automatic.conf
+    dest: /etc/dnf/automatic.conf
+    owner: root
+    group: root
+    mode: "0664"
+
+- name: "enable dnf-automatic timer"
+  systemd:
+    name: dnf-automatic.timer
+    state: started
+    enabled: yes
+

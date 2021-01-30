@@ -1,37 +1,55 @@
 ---
+- name: initialize server
+  block:
+  - name: Create swap space
+    command: dd if=/dev/zero of=/swap bs=1M count=1024
+    when: ansible_swaptotal_mb < 1
 
-- name: Ensure group sudo exists
-  group:
-    name: sudo
-    state: present
+  - name: Make swap
+    command: mkswap /swap
+    when: ansible_swaptotal_mb < 1
 
-- name: "add user ansible in group sudo"
-  user:
-    name: "ansible"
-    groups: sudo
+  - name: Add swap to fstab
+    action: lineinfile dest=/etc/fstab regexp="swap" line="/swap none swap sw 0 0" state=present
 
-- name: "copy authorized_keys"
-  template:
-    src: templates/authorized_keys
-    dest: /home/ansible/.ssh/authorized_keys
-    owner: ansible
-    group: ansible
-    mode: '0644'
+  - name: Turn swap on
+    command: swapon -a
 
-- name: "copy sudoers config"
-  template:
-    src: templates/sudoers
-    dest: /etc/sudoers
-    owner: root 
-    group: root 
-    mode: '0440'
+  - name: Set timezone to America/Chicago
+    timezone:
+      name: America/Chicago
 
-- name: "copy sshd config"
-  template:
-    src: templates/sshd_config
-    dest: /etc/ssh/sshd_config
-    owner: root 
-    group: root 
-    mode: '0644'
-  notify: restart sshd
+  - name: Ensure group sudo exists
+    group:
+      name: sudo
+      state: present
 
+  - name: "add user ansible in group sudo"
+    user:
+      name: "ansible"
+      groups: sudo
+
+  - name: "copy sshd config"
+    copy:
+      src: files/sshd_config
+      dest: /etc/ssh/sshd_config
+      owner: root 
+      group: root 
+      mode: '0644'
+    notify: restart sshd
+
+  - name: "copy authorized_keys"
+    copy:
+      src: files/authorized_keys
+      dest: /home/ansible/.ssh/authorized_keys
+      owner: ansible
+      group: ansible
+      mode: '0644'
+
+  - name: "copy sudoers config"
+    copy:
+      src: files/sudoers
+      dest: /etc/sudoers
+      owner: root 
+      group: root 
+      mode: '0440'

@@ -1,0 +1,7 @@
+---
+
+- name: apply common configuration to all hosts
+  hosts: staging
+  become: yes
+  roles:
+    - common

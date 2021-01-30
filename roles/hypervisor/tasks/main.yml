@@ -1,5 +1,0 @@
----
-
-- { include: dnf.yml, become: yes }
-- { include: libvirt.yml, become: yes }
-- { include: mnt-nfs.yml, become: yes }

@@ -1,4 +1,3 @@
 ---
-
-- { include: admin.yml, become: yes }
-- { include: env.yml, become: yes }
+- include_tasks: "admin.yml"
+- include_tasks: "install-{{ ansible_distribution }}.yml"

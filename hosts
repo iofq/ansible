@@ -1,5 +1,5 @@
-[hypervisors]
-centos-staging.iofq.local
+[staging]
+ansible.homelab
 
-[nodes]
-ubuntu-staging.iofq.local
+[production]
+flat.homelab
