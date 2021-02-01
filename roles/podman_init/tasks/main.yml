@@ -1,0 +1,27 @@
+---
+
+- include_tasks: "install-podman-{{ ansible_distribution }}.yml"
+
+- name: ensure mount point exists
+  file:
+    path: /mnt/nfs/docker
+    state: directory
+    mode: '0755'
+
+- name: mount docker nfs shares
+  mount:
+    src: raw.homelab:/srv/docker
+    path: /mnt/nfs/docker
+    opts: rw,sync,hard
+    fstype: nfs
+    state: mounted
+
+- name: ensure podman-auto-update is running for images
+  become: true
+  systemd:
+    name: podman-auto-update.service
+    daemon_reload: true
+    scope: system
+    state: started
+    enabled: true
+

@@ -1,0 +1,13 @@
+---
+
+podman_name: smokeping
+podman_image: docker.io/linuxserver/smokeping
+podman_args: >-
+  -e PUID=1000 
+  -e PGID=1000 
+  -e TZ=America/Chicago
+  -p 9090:80
+  -v /mnt/nfs/docker/smokeping/config:/config
+  -v /mnt/nfs/docker/smokeping/data:/data
+podman_cmd_args:
+podman_auto_update: yes

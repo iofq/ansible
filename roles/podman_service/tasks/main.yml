@@ -1,0 +1,13 @@
+---
+
+- name: "create systemd service file for {{ podman_name }}"
+  template:
+    src: templates/systemd-service.j2
+    dest: /etc/systemd/system/podman-{{ podman_name }}.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload_systemctl
+    - start_service
+    - enable_service

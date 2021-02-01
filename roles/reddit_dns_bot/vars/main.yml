@@ -1,0 +1,13 @@
+---
+
+podman_name: reddit_dns_bot
+podman_image: docker.io/iofq/reddit-dns-bot
+podman_args: >-
+  --dns=127.0.0.1 
+  -e CLIENT_ID="hQtUJ0aQaaU1Ig" 
+  -e CLIENT_SECRET="{{ reddit_dns_secret }}" 
+  -e CLIENT_USER="dns_bot" 
+  -e CLIENT_PASS="{{ reddit_dns_pass }}" 
+  -e USER_AGENT="dns_bot 0.3" 
+podman_cmd_args:
+podman_auto_update: yes

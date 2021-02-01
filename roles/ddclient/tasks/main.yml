@@ -1,0 +1,5 @@
+---
+
+- name: podman_service for {{ podman_name }}
+  include_role:
+    name: podman_service

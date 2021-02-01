@@ -1,7 +1,19 @@
 ---
 
 - name: apply common configuration to all hosts
-  hosts: staging
-  become: yes
+  hosts: all
   roles:
-    - common
+  - common
+
+- name: apply configuration to ansible.homelab
+  hosts: ansible.homelab
+  become: yes
+  handlers:
+  - import_tasks: handlers/main.yml
+  vars_files:
+    - secrets.yml
+  roles:
+    - podman_init
+    - ddclient
+    - reddit_dns_bot
+    - smokeping

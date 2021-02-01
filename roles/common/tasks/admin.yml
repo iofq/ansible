@@ -1,19 +1,25 @@
 ---
 - name: initialize server
   block:
-  - name: Create swap space
-    command: dd if=/dev/zero of=/swap bs=1M count=1024
+  - name: Create swap space equal to size of RAM
+    command: "dd if=/dev/zero of=/swapfile bs=1M count={{ ansible_memtotal_mb }}"
     when: ansible_swaptotal_mb < 1
 
   - name: Make swap
-    command: mkswap /swap
+    command: mkswap /swapfile
     when: ansible_swaptotal_mb < 1
 
   - name: Add swap to fstab
-    action: lineinfile dest=/etc/fstab regexp="swap" line="/swap none swap sw 0 0" state=present
+    action: lineinfile dest=/etc/fstab regexp="swap" line="/swapfile none swap sw 0 0" state=present
 
   - name: Turn swap on
     command: swapon -a
+
+  - name: set net.core.rmem_max to 1048576
+    sysctl:
+      name: net.core.rmem_max
+      value: '1048576'
+      state: present
 
   - name: Set timezone to America/Chicago
     timezone:

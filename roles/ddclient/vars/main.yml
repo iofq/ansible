@@ -1,0 +1,11 @@
+---
+
+podman_name: ddclient
+podman_image: docker.io/linuxserver/ddclient
+podman_args: >-
+  -e PUID=1000 
+  -e PGID=1000 
+  -e TZ=America/Chicago 
+  -v /mnt/nfs/docker/ddclient/config:/config
+podman_cmd_args:
+podman_auto_update: yes

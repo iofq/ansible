@@ -9,8 +9,7 @@
   vars:
     packages:
       - dnf-automatic
-  tags:
-  - packages
+      - nfs-utils
 
 - name: "copy in dnf-automatic.conf"
   copy:

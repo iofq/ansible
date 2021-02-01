@@ -1,0 +1,24 @@
+[Unit]
+Description=Podman systemd service for {{ podman_name }}
+After=network.target
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/rm -f %t/podman/%n-pid %t/podman/%n-cid
+
+ExecStart=/usr/bin/podman run --replace {% if podman_auto_update %} --label "io.containers.autoupdate=image"{% endif %} --name {{ podman_name }} \
+  {{ podman_args }} \
+  --conmon-pidfile  %t/podman/%n-pid --cidfile %t/podman/%n-cid \
+  {{ podman_image }} \
+  {{ podman_cmd_args }}
+
+ExecStop=/usr/bin/podman stop --cidfile %t/podman/%n-cid
+ExecStop=/usr/bin/podman rm --cidfile %t/podman/%n-cid
+Restart=on-failure
+RestartSec=5
+KillMode=mixed
+PIDFile=%t/podman/%n-pid
+Environment=PODMAN_SYSTEMD_UNIT=%n
+
+[Install]
+WantedBy=multi-user.target
