@@ -1,0 +1,17 @@
+---
+
+podman_name: trans
+podman_image: docker.io/iofq/trans
+podman_args: >-
+    --cap-add=NET_ADMIN 
+    --device /dev/net/tun 
+    --dns 1.1.1.1 
+    -p 56843:56843 
+    -p 56843:56843/udp 
+    -p 9091:9091 
+    -v /mnt/nfs/docker/trans/ovpn:/ovpn 
+    -v /mnt/nfs/docker/trans/config:/config 
+    -v /mnt/nfs/data/torrent:/downloads 
+    -v /mnt/nfs/data/torrent/watch:/watch 
+podman_cmd_args:
+podman_auto_update: yes

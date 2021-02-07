@@ -1,0 +1,9 @@
+---
+
+podman_name: frzr
+podman_image: docker.io/iofq/freezer
+podman_args: >-
+  -p 10069:10069
+  -v /mnt/nfs/data/freezer:/root/FreezerMusic
+podman_cmd_args: -H 0.0.0.0
+podman_auto_update: yes

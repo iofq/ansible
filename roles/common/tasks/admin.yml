@@ -15,10 +15,10 @@
   - name: Turn swap on
     command: swapon -a
 
-  - name: set net.core.rmem_max to 1048576
+  - name: set net.core.rmem_max to 4194304
     sysctl:
       name: net.core.rmem_max
-      value: '1048576'
+      value: '4194304'
       state: present
 
   - name: Set timezone to America/Chicago
@@ -59,3 +59,4 @@
       owner: root 
       group: root 
       mode: '0440'
+      force: no

@@ -1,5 +1,2 @@
 [staging]
 ansible.homelab
-
-[production]
-flat.homelab

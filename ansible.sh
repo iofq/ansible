@@ -8,4 +8,4 @@ docker run --rm -it \
     -v /home/e/.ssh:/root/.ssh \
     -e ANSIBLE_HOST_KEY_CHECKING='False' \
     -e ANSIBLE_REMOTE_USER='ansible' \
-    $IMAGE ansible-playbook --ask-vault-pass --forks 1 -i hosts site.yml
+    $IMAGE ansible-playbook --ask-vault-pass -i hosts site.yml

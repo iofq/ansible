@@ -7,7 +7,11 @@
     owner: root
     group: root
     mode: 0644
-  notify:
-    - reload_systemctl
-    - start_service
-    - enable_service
+  register: systemd_reg
+
+- name: "restart service {{ podman_name }}"
+  systemd:
+    name: "podman-{{ podman_name }}"
+    state: restarted
+    daemon_reload: yes
+  when: systemd_reg.changed

@@ -2,14 +2,13 @@
 
 - name: apply common configuration to all hosts
   hosts: all
+  become: yes
   roles:
   - common
 
 - name: apply configuration to ansible.homelab
   hosts: ansible.homelab
   become: yes
-  handlers:
-  - import_tasks: handlers/main.yml
   vars_files:
     - secrets.yml
   roles:
@@ -17,3 +16,5 @@
     - ddclient
     - reddit_dns_bot
     - smokeping
+    - freezer
+    - trans
